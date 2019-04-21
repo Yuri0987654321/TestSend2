@@ -1,20 +1,18 @@
 package com.example.TestShop2;
 
-import com.example.TestShop2.domain.Message;
-import com.example.TestShop2.repos.MessageRepo;
+import com.example.TestShop2.domain.Product;
+import com.example.TestShop2.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class GreetingController {
     @Autowired
-    private MessageRepo messageRepo;
+    private ProductRepo productRepo;
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Map<String, Object> model) {
@@ -22,19 +20,41 @@ public class GreetingController {
         return "greeting";
     }
 
-    @GetMapping
-    public String main(Map<String, Object> model) {
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
+    @GetMapping("/products")
+    public String products(Map<String, Object> model) {
+        Iterable<Product> products = productRepo.findAll();
+        model.put("products", products);
         return "main";
     }
 
-    @PostMapping
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
-        messageRepo.save(message);
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
+    @GetMapping("/products/{id}")
+    public String product(@PathVariable("id") Integer id, Map<String, Object> model) {
+        Optional<Product> product = Optional.empty();
+        try {
+            Iterable<Product> all = productRepo.findAll();
+            for(Product m:all){
+                if(id.equals(m.getId())){
+                    product = Optional.of(m);
+                    break;
+                }
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        if(product.isPresent()) {
+            model.put("product", product.get());
+            return "product";
+        }else{
+            return "empty";
+        }
+    }
+
+    @PostMapping("/products")
+    public String add(@RequestParam String name, @RequestParam String characteristic, @RequestParam String price, Map<String, Object> model) {
+        Product product = new Product(name, characteristic, price);
+        productRepo.save(product);
+        Iterable<Product> products = productRepo.findAll();
+        model.put("products", products);
         return "main";
     }
 }

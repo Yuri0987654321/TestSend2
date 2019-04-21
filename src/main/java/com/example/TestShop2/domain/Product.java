@@ -13,14 +13,16 @@ public class Product {
     private String name;
     private String characteristic;
     private String price;
+    private int stock;
 
     public Product() {
     }
 
-    public Product(String name, String characteristic, String price) {
+    public Product(String name, String characteristic, String price, int stock) {
         this.name = name;
         this.characteristic = characteristic;
         this.price = price;
+        this.stock = stock;
     }
 
     public void setName(String name) {
@@ -56,5 +58,13 @@ public class Product {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setStock(int stock) {
+        this.name = name;
+    }
+
+    public int getStock() {
+        return stock;
     }
 }

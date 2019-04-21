@@ -50,8 +50,8 @@ public class GreetingController {
     }
 
     @PostMapping("/products")
-    public String add(@RequestParam String name, @RequestParam String characteristic, @RequestParam String price, Map<String, Object> model) {
-        Product product = new Product(name, characteristic, price);
+    public String add(@RequestParam String name, @RequestParam String characteristic, @RequestParam String price, @RequestParam int stock, Map<String, Object> model) {
+        Product product = new Product(name, characteristic, price, stock);
         productRepo.save(product);
         Iterable<Product> products = productRepo.findAll();
         model.put("products", products);

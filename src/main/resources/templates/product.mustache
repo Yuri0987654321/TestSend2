@@ -1,14 +1,13 @@
 <html>
 <body>
-<div>Товар</div>
 {{#product}}
 <div>
     <p>Товар</p>
     <b>{{id}}</b>
     <span>{{name}}</span>
     <span>{{characteristic}}</span>
-    <span>{{price}}</span>
-
+    <span>{{price}} р.,</span>
+    <span> остаток на складе: {{stock}}шт.</span>
 </div>
 {{/product}}
 </body>

@@ -5,6 +5,7 @@
         <input type="text" name="name" placeholder="Название товара" />
         <input type="text" name="characteristic" placeholder="Описание" />
         <input type="text" name="price" placeholder="Стоимость" />
+        <input type="text" name="stock" placeholder="остаток на складе" />
         <button type="submit">Добавить</button>
     </form>
 </div>
@@ -15,7 +16,8 @@
     <b>{{id}}</b>
     <span>{{name}}</span>
     <span>{{characteristic}}</span>
-    <span>{{price}}</span>
+    <span>{{price}}р.,</span>
+    <span> остаток на складе:{{stock}}шт.</span>
     <a href="/products/{{id}}">{{name}}</a>
 </div>
 {{/products}}
